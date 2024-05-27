@@ -3,10 +3,7 @@ package com.example.aircraftwar.aircraft;
 import com.example.aircraftwar.basic.AbstractFlyingObject;
 
 public abstract class BaseAircraft extends AbstractFlyingObject {
-    private int hp;
-    private int maxHp;
-    // TODO : Direction may not be represented using int
-    private int direction = -1;
+    protected int hp;
     public BaseAircraft(int _x, int _y, int _vx, int _vy) {
         super(_x, _y, _vx, _vy);
     }
@@ -17,7 +14,9 @@ public abstract class BaseAircraft extends AbstractFlyingObject {
     public void updateHp(int delta) {
         this.hp += delta;
         if (this.hp <= 0) this.vanish();
-        if (this.hp > maxHp) this.hp = maxHp;
     }
 
+    public int getHp() {
+        return hp;
+    }
 }

@@ -2,15 +2,20 @@ package com.example.aircraftwar.basic;
 
 import android.graphics.Bitmap;
 
+import com.example.aircraftwar.strategy.move.MoveStrategy;
+
 public abstract class AbstractFlyingObject {
-    private int x;
-    private int y;
-    private int vx;
-    private int vy;
+    protected int x;
+    protected int y;
+    protected int vx;
+    protected int vy;
+    protected int directionX = 0;
+    protected int directionY = 0;
     protected Bitmap image;
-    private int width = -1;
-    private int height = -1;
-    private boolean isValid = false;
+    protected int width = -1;
+    protected int height = -1;
+    protected MoveStrategy movePattern;
+    protected boolean isValid = false;
     // Constructor: Physics Properties
     public AbstractFlyingObject(int _x,int _y,int _vx,int _vy) {
         x = _x;
@@ -27,6 +32,14 @@ public abstract class AbstractFlyingObject {
         return y;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -35,8 +48,24 @@ public abstract class AbstractFlyingObject {
         return height;
     }
 
+    public int getDirectionX() {
+        return directionX;
+    }
+
+    public int getDirectionY() {
+        return directionY;
+    }
+
     // Move Pattern: Specified by Subclass
-    public void move(){};
+    public void move(){
+        assert movePattern != null : "Move Pattern Unset!";
+        this.movePattern.moveWithPattern(this);
+    };
+
+    public void setMovePattern(MoveStrategy movePattern) {
+        this.movePattern = movePattern;
+    }
+
     // Crash Check Logic
     // TODO : CheckPoint vary from obj to obj;
     // TODO : Scale to be done
@@ -54,4 +83,5 @@ public abstract class AbstractFlyingObject {
     public void vanish() {
         this.isValid = false;
     }
+    public void updateForBomb(){}
 }

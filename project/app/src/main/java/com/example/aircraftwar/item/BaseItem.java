@@ -9,5 +9,5 @@ public abstract class BaseItem extends AbstractFlyingObject {
         super(_x, _y, _vx, _vy);
     }
     // Do sth when being obtained
-    public abstract boolean onEffect(HeroAircraft hero);
+    public abstract boolean onEffect();
 }
