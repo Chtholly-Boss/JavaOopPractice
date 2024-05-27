@@ -1,4 +1,4 @@
-package com.example.aircraftwar;
+package com.example.aircraftwar.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.aircraftwar.R;
 
 <<<<<<< HEAD
 public class OfflineActivity extends AppCompatActivity implements View.OnClickListener{

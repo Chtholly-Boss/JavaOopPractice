@@ -1,4 +1,4 @@
-package com.example.aircraftwar;
+package com.example.aircraftwar.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.aircraftwar.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private boolean isSoundEffectOn = false;
