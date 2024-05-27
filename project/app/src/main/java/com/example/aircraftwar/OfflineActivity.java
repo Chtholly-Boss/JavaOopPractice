@@ -9,12 +9,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+<<<<<<< HEAD
 public class OfflineActivity extends AppCompatActivity implements View.OnClickListener{
     private Boolean isSoundEffectOn;
     TextView tvTitle;
     Button btnEasy;
     Button btnNormal;
     Button btnHard;
+=======
+public class OfflineActivity extends AppCompatActivity {
+>>>>>>> myb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
