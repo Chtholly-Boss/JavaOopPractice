@@ -2,13 +2,14 @@ package com.example.aircraftwar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class OfflineActivity extends AppCompatActivity {
+public class OfflineActivity extends AppCompatActivity implements View.OnClickListener{
     private Boolean isSoundEffectOn;
     TextView tvTitle;
     Button btnEasy;
@@ -23,12 +24,11 @@ public class OfflineActivity extends AppCompatActivity {
         Intent receiveIntent = getIntent();
         Bundle bundle = receiveIntent.getBundleExtra("sound");
         isSoundEffectOn = (Boolean) bundle.get("Boolean");
-        String test = "00000000000000000";
-
-        if(isSoundEffectOn == true) test = "111111111111111";
+        if(isSoundEffectOn)Toast.makeText(this, "音效开启", Toast.LENGTH_LONG).show();
+        else Toast.makeText(this, "音效关闭", Toast.LENGTH_LONG).show();
         initView();
 
-        Toast.makeText(this, test, Toast.LENGTH_LONG).show();
+
 
 
     }
@@ -38,7 +38,14 @@ public class OfflineActivity extends AppCompatActivity {
         btnEasy = (Button) findViewById(R.id.btnEasy);
         btnNormal = (Button) findViewById(R.id.btnNormal);
         btnHard = (Button) findViewById(R.id.btnHard);
+        btnEasy.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View view){
+
+
+
+    }
 
 }
