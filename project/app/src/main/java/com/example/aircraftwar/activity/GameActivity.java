@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aircraftwar.game.BaseGame;
+import com.example.aircraftwar.game.EasyGame;
 
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
@@ -23,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
             gameType = getIntent().getIntExtra("gameType", 1);
         }
         // TODO : Choose Game corresponding to Game Type
-        BaseGame baseGameView = null;
+        BaseGame baseGameView = new EasyGame(this);
         setContentView(baseGameView);
     }
     private void getScreenParams(){

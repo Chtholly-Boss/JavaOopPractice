@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -12,7 +13,10 @@ import android.view.View;
 import com.example.aircraftwar.activity.GameActivity;
 import com.example.aircraftwar.aircraft.HeroAircraft;
 import com.example.aircraftwar.aircraft.enemy.BaseEnemyAircraft;
+import com.example.aircraftwar.basic.AbstractFlyingObject;
 import com.example.aircraftwar.bullet.BaseBullet;
+import com.example.aircraftwar.factory.enemyFactory.EliteEnemyFactory;
+import com.example.aircraftwar.factory.enemyFactory.EnemyFactory;
 import com.example.aircraftwar.item.BaseItem;
 import com.example.aircraftwar.manager.ImageManager;
 
@@ -21,17 +25,22 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Callback,Runnable {
     public static final String TAG = "BaseGame";
-    boolean mbLoop;
+    protected boolean mIsDrawing;
     private Canvas mCanvas;
     private final Paint mPaint;
     private final SurfaceHolder mSurfaceHolder;
     protected Bitmap background;
+    protected int backgroundTop = 0;
     private final int flushInterval = 16;
     private final HeroAircraft hero;
     protected final List<BaseEnemyAircraft> enemys;
-    protected final List<BaseBullet> bullets;
+    protected final List<BaseBullet> bulletsOfHero;
+    protected final List<BaseBullet> bulletsOfEnemy;
     protected final List<BaseItem> items;
+    private EnemyFactory enemyFactory;
+    private int cycleTime = 0;
     private int score = 0;
+    private boolean gameOver = false;
 
     public BaseGame(Context context) {
         super(context);
@@ -43,10 +52,15 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         ImageManager.initImage(context);
         // Initialize Game Objects
         this.hero = HeroAircraft.getInstance();
+        this.hero.setHp(1000);
         enemys = new CopyOnWriteArrayList<>();
-        bullets = new CopyOnWriteArrayList<>();
+        bulletsOfHero = new CopyOnWriteArrayList<>();
+        bulletsOfEnemy = new CopyOnWriteArrayList<>();
         items = new CopyOnWriteArrayList<>();
 
+        enemyFactory = new EliteEnemyFactory();
+
+        this.heroController();
     }
 
     private void heroController() {
@@ -64,7 +78,61 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     public void action() {
         Runnable task = () -> {
             // TODO : Game Logic
+            // TODO : Time Tick Tasks: Generate Enemy and Raise up Hard Level
+            // TODO : Routines
+            this.enemys.forEach(AbstractFlyingObject::move);
+            this.bulletsOfHero.forEach(AbstractFlyingObject::move);
+            this.bulletsOfEnemy.forEach(AbstractFlyingObject::move);
+            this.items.forEach(AbstractFlyingObject::move);
+
+            this.bulletsOfHero.forEach(bullet -> this.enemys.forEach(bullet::hitObject));
+            this.bulletsOfEnemy.forEach(bullet -> bullet.hitObject(this.hero));
+
+            this.items.forEach(BaseItem::onEffect);
+            this.postProcess();
+
         };
         task.run();
+    }
+    private void postProcess() {
+        enemys.removeIf(AbstractFlyingObject::notValid);
+        bulletsOfHero.removeIf(AbstractFlyingObject::notValid);
+        bulletsOfEnemy.removeIf(AbstractFlyingObject::notValid);
+        items.removeIf(AbstractFlyingObject::notValid);
+        if (hero.notValid()) {
+            this.gameOver = true;
+            this.mIsDrawing = false;
+            Log.i(TAG,"HeroAircraft is not valid.");
+        }
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void draw() {
+        mCanvas = mSurfaceHolder.lockCanvas();
+        if (mCanvas == null) return;
+        mCanvas.drawBitmap(background,0, backgroundTop-background.getHeight(),mPaint);
+        mCanvas.drawBitmap(background,0,backgroundTop,mPaint);
+        backgroundTop = backgroundTop == GameActivity.screenHeight ? 0 : backgroundTop + 1;
+        paintWithPositionRevised(bulletsOfEnemy);
+        paintWithPositionRevised(bulletsOfHero);
+        paintWithPositionRevised(enemys);
+        paintWithPositionRevised(items);
+        paintWithPositionRevised(hero);
+
+        mSurfaceHolder.unlockCanvasAndPost(mCanvas);
+
+    }
+    private void paintWithPositionRevised(List<? extends AbstractFlyingObject> objects) {
+        if (objects.size() == 0) return;
+        objects.forEach(this::paintWithPositionRevised);
+    }
+    private void paintWithPositionRevised(AbstractFlyingObject obj) {
+        Bitmap image = obj.getImage();
+        assert image != null : obj.getClass().getName() + " has no image!!!";
+        mCanvas.drawBitmap(image,obj.getX() - image.getWidth() / 2,
+                obj.getY() - image.getHeight() / 2,mPaint );
     }
 }

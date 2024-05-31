@@ -12,6 +12,7 @@ import com.example.aircraftwar.item.FireItem;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ImageManager {
     private static final Map<String, Bitmap> CLASSNAME_IMAGE_MAP = new HashMap<>();
@@ -43,5 +44,13 @@ public class ImageManager {
     private static void initItemImage(Context context) {
         ImageManager.ITEM_FIRE = BitmapFactory.decodeResource(context.getResources(),R.drawable.fire_item);
         CLASSNAME_IMAGE_MAP.put(FireItem.class.getName(),ITEM_FIRE);
+    }
+
+    public static Bitmap get(String className) {
+        return CLASSNAME_IMAGE_MAP.get(className);
+    }
+    public static Bitmap get(Object obj) {
+        if (obj == null) return null;
+        return get(obj.getClass().getName());
     }
 }

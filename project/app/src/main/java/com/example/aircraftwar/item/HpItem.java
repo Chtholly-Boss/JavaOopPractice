@@ -14,7 +14,7 @@ public class HpItem extends BaseItem{
         HeroAircraft hero = HeroAircraft.getInstance();
         this.recoverHp = (int)(hero.getMaxHp() * 0.1);
         if (this.crash(hero)) {
-            hero.updateHp(recoverHp);
+            hero.addHp(recoverHp);
             return true;
         }
         return false;

@@ -1,5 +1,6 @@
 package com.example.aircraftwar.bullet;
 
+import com.example.aircraftwar.aircraft.BaseAircraft;
 import com.example.aircraftwar.basic.AbstractFlyingObject;
 
 public abstract class BaseBullet extends AbstractFlyingObject {
@@ -14,5 +15,5 @@ public abstract class BaseBullet extends AbstractFlyingObject {
     }
     // Hit a Flying Object that has hp
     // Return a boolean to determine whether hero get points
-    public abstract boolean hitObject();
+    public abstract boolean hitObject(BaseAircraft that);
 }

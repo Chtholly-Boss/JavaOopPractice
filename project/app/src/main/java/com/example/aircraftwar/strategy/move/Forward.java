@@ -4,6 +4,7 @@ import com.example.aircraftwar.basic.AbstractFlyingObject;
 
 public class Forward implements MoveStrategy{
     private int speed = 1;
+    public Forward() {}
     private Forward(int _speed){
         this.speed = _speed;
     }
