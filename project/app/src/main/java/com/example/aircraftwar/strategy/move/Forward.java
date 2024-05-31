@@ -3,7 +3,7 @@ package com.example.aircraftwar.strategy.move;
 import com.example.aircraftwar.basic.AbstractFlyingObject;
 
 public class Forward implements MoveStrategy{
-    private int speed = 1;
+    private int speed = 10;
     public Forward() {}
     private Forward(int _speed){
         this.speed = _speed;

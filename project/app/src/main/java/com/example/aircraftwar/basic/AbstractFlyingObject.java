@@ -11,8 +11,8 @@ public abstract class AbstractFlyingObject {
     protected int y;
     protected int vx;
     protected int vy;
-    protected int directionX = 0;
-    protected int directionY = 0;
+    protected int directionX = -1;
+    protected int directionY = -1;
     protected Bitmap image;
     protected int width = -1;
     protected int height = -1;
@@ -92,9 +92,6 @@ public abstract class AbstractFlyingObject {
         this.movePattern = movePattern;
     }
 
-    // Crash Check Logic
-    // TODO : CheckPoint vary from obj to obj;
-    // TODO : Scale to be done
     public boolean crash(AbstractFlyingObject that) {
         int factor = this instanceof BaseAircraft ? 2 : 1;
         int tFactor = that instanceof BaseAircraft ? 2 : 1;

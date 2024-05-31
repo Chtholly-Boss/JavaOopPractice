@@ -81,7 +81,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     public void action() {
         Runnable task = () -> {
             // TODO : Time Tick Tasks: Generate Enemy and Raise up Hard Level
-
+            this.bulletsOfHero.addAll(hero.shoot());
             // Routines
             this.enemys.forEach(AbstractFlyingObject::move);
             this.bulletsOfHero.forEach(AbstractFlyingObject::move);
@@ -118,7 +118,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         if (mCanvas == null) return;
         mCanvas.drawBitmap(background,0, backgroundTop-background.getHeight(),mPaint);
         mCanvas.drawBitmap(background,0,backgroundTop,mPaint);
-        backgroundTop = backgroundTop == background.getHeight() ? 0 : backgroundTop + 5;
+        backgroundTop = backgroundTop == background.getHeight() ? 0 : backgroundTop + 1;
         paintWithPositionRevised(bulletsOfEnemy);
         paintWithPositionRevised(bulletsOfHero);
         paintWithPositionRevised(enemys);

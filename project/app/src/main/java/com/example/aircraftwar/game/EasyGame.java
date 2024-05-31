@@ -11,6 +11,6 @@ public class EasyGame extends BaseGame{
 
     public EasyGame(Context context) {
         super(context);
-        this.background = ImageManager.STAGE_1_IMAGE;
+        this.background = ImageManager.STAGE_2_IMAGE;
     }
 }

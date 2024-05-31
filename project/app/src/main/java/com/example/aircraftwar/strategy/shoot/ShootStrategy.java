@@ -7,7 +7,7 @@ import com.example.aircraftwar.factory.bulletFactory.BulletFactory;
 import java.util.List;
 
 public abstract class ShootStrategy {
-    protected int shootNum = 0;
+    protected int shootNum = 2;
     protected int power = 0;
     protected BulletFactory factory;
 
