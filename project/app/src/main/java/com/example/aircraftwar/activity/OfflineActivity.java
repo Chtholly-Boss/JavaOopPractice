@@ -11,16 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aircraftwar.R;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 public class OfflineActivity extends AppCompatActivity implements View.OnClickListener{
     private Boolean isSoundEffectOn;
     TextView tvTitle;
     Button btnEasy;
     Button btnNormal;
     Button btnHard;
-=======
-public class OfflineActivity extends AppCompatActivity {
->>>>>>> myb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
