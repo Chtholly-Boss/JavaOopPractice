@@ -15,7 +15,6 @@ public class HeroAircraft extends BaseAircraft{
         super(GameActivity.screenWidth/2, GameActivity.screenHeight- ImageManager.HERO_IMAGE.getHeight(), 0, 0, 1000);
         this.maxHp = 1000;
         this.setMovePattern(new Stay()); // Controlled by Player
-        this.bulletFactory = new HeroBulletFactory();
         this.shootStrategy = new DirectShoot(bulletFactory);
     }
     public static HeroAircraft getInstance() {

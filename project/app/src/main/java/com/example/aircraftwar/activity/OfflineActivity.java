@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.aircraftwar.R;
 
 public class OfflineActivity extends AppCompatActivity implements View.OnClickListener{
+    private int gameType = 0;
     private Boolean isSoundEffectOn;
     TextView tvTitle;
     Button btnEasy;
@@ -39,5 +40,11 @@ public class OfflineActivity extends AppCompatActivity implements View.OnClickLi
     }
     @Override
     public void onClick(View view){
+        if (view.getId() == R.id.btnEasy) {
+            gameType = 1;
+            Intent intent = new Intent(OfflineActivity.this, GameActivity.class);
+            intent.putExtra("gameType",gameType);
+            startActivity(intent);
+        }
     }
 }

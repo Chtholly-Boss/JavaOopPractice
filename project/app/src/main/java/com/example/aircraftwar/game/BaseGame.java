@@ -10,6 +10,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.example.aircraftwar.activity.GameActivity;
 import com.example.aircraftwar.aircraft.HeroAircraft;
 import com.example.aircraftwar.aircraft.enemy.BaseEnemyAircraft;
@@ -45,6 +47,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     public BaseGame(Context context) {
         super(context);
         // Initialize Paint Tools
+        mIsDrawing = true;
         mPaint = new Paint();
         mSurfaceHolder = this.getHolder();
         mSurfaceHolder.addCallback(this);
@@ -77,7 +80,6 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     }
     public void action() {
         Runnable task = () -> {
-            // TODO : Game Logic
             // TODO : Time Tick Tasks: Generate Enemy and Raise up Hard Level
 
             // Routines
@@ -116,7 +118,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         if (mCanvas == null) return;
         mCanvas.drawBitmap(background,0, backgroundTop-background.getHeight(),mPaint);
         mCanvas.drawBitmap(background,0,backgroundTop,mPaint);
-        backgroundTop = backgroundTop == GameActivity.screenHeight ? 0 : backgroundTop + 1;
+        backgroundTop = backgroundTop == background.getHeight() ? 0 : backgroundTop + 5;
         paintWithPositionRevised(bulletsOfEnemy);
         paintWithPositionRevised(bulletsOfHero);
         paintWithPositionRevised(enemys);
@@ -135,5 +137,30 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         assert image != null : obj.getClass().getName() + " has no image!!!";
         mCanvas.drawBitmap(image,obj.getX() - image.getWidth() / 2,
                 obj.getY() - image.getHeight() / 2,mPaint );
+    }
+
+    @Override
+    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+        mIsDrawing = true;
+        new Thread(this).start();
+    }
+
+    @Override
+    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+        GameActivity.screenWidth = i1;
+        GameActivity.screenHeight = i2;
+    }
+
+    @Override
+    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+        mIsDrawing = false;
+    }
+
+    @Override
+    public void run() {
+        while (mIsDrawing) {
+            this.action();
+            draw();
+        }
     }
 }
