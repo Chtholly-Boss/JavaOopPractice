@@ -1,12 +1,12 @@
 package com.example.aircraftwar.factory.itemFactory;
 
 import com.example.aircraftwar.item.BaseItem;
-import com.example.aircraftwar.item.HpItem;
+import com.example.aircraftwar.item.HealFixedItem;
 
 public class HpItemFactory implements ItemFactory{
 
     @Override
     public BaseItem makeItem(int x, int y) {
-        return new HpItem(x,y,0,2);
+        return new HealFixedItem(x,y,0,2);
     }
 }

@@ -7,17 +7,17 @@ import com.example.aircraftwar.manager.ImageManager;
 import com.example.aircraftwar.strategy.move.Forward;
 import com.example.aircraftwar.strategy.shoot.DirectShoot;
 
-public class EliteEnemyFactory implements EnemyFactory{
-    private int eliteHp = 60;
-    private int vy = 5;
+public class EliteEnemyFactory extends EnemyFactory{
+    public EliteEnemyFactory() {
+        this.x = (int) (Math.random() * (GameActivity.screenWidth - ImageManager.ELITE_ENEMY_IMAGE.getWidth()));
+        this.y = (int) (Math.random() * GameActivity.screenHeight * 0.05);
+        this.vx = (int) ((Math.random() - 0.5) * 20);
+        this.vy = 5;
+        this.hp = 60;
+    }
     @Override
     public BaseEnemyAircraft makeEnemy() {
-        EliteEnemyAircraft elite = new EliteEnemyAircraft(
-                (int) (Math.random() * (GameActivity.screenWidth - ImageManager.ELITE_ENEMY_IMAGE.getWidth())),
-                (int) (Math.random() * GameActivity.screenHeight * 0.05),
-                (int) ((Math.random() - 0.5) * 20),
-                (int) (this.eliteHp)
-        );
+        EliteEnemyAircraft elite = new EliteEnemyAircraft(x,y,vx,vy);
         elite.setMovePattern(new Forward().setSpeed(this.vy));
         elite.setShootStrategy(new DirectShoot());
         return elite;

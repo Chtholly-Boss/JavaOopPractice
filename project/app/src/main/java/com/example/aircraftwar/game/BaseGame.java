@@ -79,7 +79,8 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         Runnable task = () -> {
             // TODO : Game Logic
             // TODO : Time Tick Tasks: Generate Enemy and Raise up Hard Level
-            // TODO : Routines
+
+            // Routines
             this.enemys.forEach(AbstractFlyingObject::move);
             this.bulletsOfHero.forEach(AbstractFlyingObject::move);
             this.bulletsOfEnemy.forEach(AbstractFlyingObject::move);

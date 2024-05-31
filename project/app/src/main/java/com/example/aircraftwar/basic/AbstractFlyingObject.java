@@ -114,8 +114,6 @@ public abstract class AbstractFlyingObject {
     public void vanish() {
         this.isValid = false;
     }
-    public void updateForBomb(){}
-
     public Bitmap getImage() {
         if (image == null) image = ImageManager.get(this);
         return image;

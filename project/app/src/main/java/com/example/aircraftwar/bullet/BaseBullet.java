@@ -16,4 +16,8 @@ public abstract class BaseBullet extends AbstractFlyingObject {
     // Hit a Flying Object that has hp
     // Return a boolean to determine whether hero get points
     public abstract boolean hitObject(BaseAircraft that);
+
+    public void setPower(int power) {
+        this.power = power;
+    }
 }

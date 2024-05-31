@@ -4,6 +4,6 @@ import com.example.aircraftwar.aircraft.BaseAircraft;
 import com.example.aircraftwar.bullet.BaseBullet;
 
 public interface BulletFactory {
-    // TODO : Power may needed here
+    // Only cares about creating a bullet,delay setting properties in Strategy
     BaseBullet makeBullet();
 }
