@@ -4,7 +4,7 @@ import com.example.aircraftwar.aircraft.BaseAircraft;
 import com.example.aircraftwar.basic.AbstractFlyingObject;
 
 public abstract class BaseBullet extends AbstractFlyingObject {
-    private int power;
+    protected int power;
 
     public BaseBullet(int _x, int _y, int _vx, int _vy) {
         super(_x, _y, _vx, _vy);

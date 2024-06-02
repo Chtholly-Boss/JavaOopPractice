@@ -1,5 +1,6 @@
 package com.example.aircraftwar.strategy.move;
 
+import com.example.aircraftwar.activity.GameActivity;
 import com.example.aircraftwar.basic.AbstractFlyingObject;
 
 public class Forward implements MoveStrategy{
@@ -20,5 +21,8 @@ public class Forward implements MoveStrategy{
         yNew += this.speed * direction;
         src.setY(yNew);
         // TODO: Go out of the Bound--Vanished
+        if (yNew > GameActivity.screenHeight || yNew < 0) {
+            src.vanish();
+        }
     }
 }

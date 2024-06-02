@@ -9,6 +9,7 @@ import java.util.List;
 public abstract class ShootStrategy {
     protected int shootNum = 2;
     protected int power = 0;
+    protected int shootInterval = 100; // ms
     protected BulletFactory factory;
 
     public ShootStrategy(BulletFactory factory) {
@@ -27,6 +28,14 @@ public abstract class ShootStrategy {
 
     public void setShootNum(int shootNum) {
         this.shootNum = shootNum;
+    }
+
+    public int getShootInterval() {
+        return shootInterval;
+    }
+
+    public void setShootInterval(int shootInterval) {
+        this.shootInterval = shootInterval;
     }
 
     public abstract List<BaseBullet> shootWithStrategy(BaseAircraft src);

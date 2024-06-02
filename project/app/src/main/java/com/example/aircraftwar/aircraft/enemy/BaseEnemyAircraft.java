@@ -15,6 +15,7 @@ public abstract class BaseEnemyAircraft extends BaseAircraft {
 
     public BaseEnemyAircraft(int _x, int _y, int _vx, int _vy) {
         super(_x, _y, _vx, _vy);
+        this.directionY = 1;
     }
     public int addScore() {
         return this.score;

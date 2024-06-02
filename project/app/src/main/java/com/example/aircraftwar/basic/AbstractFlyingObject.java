@@ -59,10 +59,16 @@ public abstract class AbstractFlyingObject {
     }
 
     public int getWidth() {
+        if (width == -1) {
+            width = ImageManager.get(this).getWidth();
+        }
         return width;
     }
 
     public int getHeight() {
+        if (height == -1) {
+            height = ImageManager.get(this).getHeight();
+        }
         return height;
     }
 
@@ -100,10 +106,10 @@ public abstract class AbstractFlyingObject {
         int thatWidth = that.getWidth();
         int thatHeight = that.getHeight();
         return
-                this.x + (thatWidth + this.width) / 2 > this.x
-                && this.x - (thatWidth + this.width) /2 < this.x
-                && this.y + (thatHeight + this.height) / 2 > this.y
-                && this.y - (thatHeight + this.height) /2 < this.y;
+                thatX + (thatWidth + this.getWidth()) / 2 > this.x
+                && thatX - (thatWidth + this.getWidth()) /2 < this.x
+                && thatY + (thatHeight/tFactor + this.getHeight()/factor) / 2 > this.y
+                && thatY - (thatHeight/tFactor + this.getHeight()/factor) /2 < this.y;
     }
     public boolean notValid() {
         return !this.isValid;
