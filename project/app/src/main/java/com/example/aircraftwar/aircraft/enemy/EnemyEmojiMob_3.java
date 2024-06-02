@@ -9,6 +9,7 @@ import java.util.List;
 public class EnemyEmojiMob_3 extends BaseEnemyEmoji {
     public EnemyEmojiMob_3(int _x, int _y, int _vx, int _vy) {
         super(_x, _y, _vx, _vy);
+        this.score = 30;
     }
 
     @Override

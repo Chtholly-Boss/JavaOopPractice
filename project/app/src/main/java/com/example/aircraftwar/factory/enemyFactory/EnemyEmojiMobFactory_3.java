@@ -10,7 +10,6 @@ import com.example.aircraftwar.strategy.move.Forward;
 import com.example.aircraftwar.strategy.shoot.DontShoot;
 
 public class EnemyEmojiMobFactory_3 extends EnemyFactory{
-    private BulletFactory bulletFactory;
     public EnemyEmojiMobFactory_3() {}
     @Override
     public BaseEnemyEmoji makeEnemy() {

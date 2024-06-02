@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -103,12 +104,15 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
             this.bulletsOfHero.forEach(bullet -> this.enemys.forEach(enemy -> {
                if (bullet.hitObject(enemy)) {
                    if (enemy.notValid()) {
+                       this.score += enemy.addScore();
                        items.addAll(enemy.addItem());
                    }
                }
             }));
             this.bulletsOfEnemy.forEach(bullet -> bullet.hitObject(this.hero));
-
+            this.enemys.forEach(enemy -> {
+                if (enemy.crash(hero)) hero.vanish();
+            });
             this.items.forEach(BaseItem::onEffect);
             this.postProcess();
 
@@ -153,7 +157,10 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         paintWithPositionRevised(enemys);
         paintWithPositionRevised(items);
         paintWithPositionRevised(hero);
-
+        mPaint.setColor(Color.WHITE);
+        mPaint.setTextSize(50);
+        mCanvas.drawText("Score: " + this.score,0,50,mPaint);
+        mCanvas.drawText("HP: " + hero.getHp(),0,100,mPaint);
         mSurfaceHolder.unlockCanvasAndPost(mCanvas);
 
     }

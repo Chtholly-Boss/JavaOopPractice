@@ -2,7 +2,10 @@ package com.example.aircraftwar.game;
 
 import android.content.Context;
 
+import com.example.aircraftwar.activity.GameActivity;
 import com.example.aircraftwar.aircraft.enemy.BaseEnemyEmoji;
+import com.example.aircraftwar.aircraft.enemy.EnemyEmojiBoss_1;
+import com.example.aircraftwar.factory.enemyFactory.EnemyEmojiBossFactory_1;
 import com.example.aircraftwar.manager.ImageManager;
 import com.example.aircraftwar.utils.WeightedRandomSelector;
 
@@ -12,6 +15,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class EasyGame extends BaseGame{
+    private boolean existBoss = false;
     private int enemyProduceInterval = 200;
     private int maxEnemyNum = 5;
     private Map<Supplier<BaseEnemyEmoji>,Double> enemyProbabilities;
@@ -35,6 +39,10 @@ public class EasyGame extends BaseGame{
             if (enemys.size() < maxEnemyNum) {
                 res.add(selector.selectRandomObject());
             }
+        }
+        if (!existBoss && score > 100) {
+            res.add(new EnemyEmojiBossFactory_1().makeEnemy());
+            existBoss = true;
         }
         return res;
     }

@@ -37,7 +37,7 @@ public abstract class BaseEnemyEmoji extends BaseEmoji {
                 () -> bulletAddFactory.makeItem(this.getX(),this.getY()),0.8
         );
         selector = new WeightedRandomSelector<>(itemProb);
-        selector.setMaxProb(1.5);
+        selector.setMaxProb(2.0);
     }
     public int addScore() {
         return this.score;
