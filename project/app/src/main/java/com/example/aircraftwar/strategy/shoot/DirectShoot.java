@@ -1,6 +1,6 @@
 package com.example.aircraftwar.strategy.shoot;
 
-import com.example.aircraftwar.aircraft.BaseAircraft;
+import com.example.aircraftwar.aircraft.BaseEmoji;
 import com.example.aircraftwar.bullet.BaseBullet;
 import com.example.aircraftwar.factory.bulletFactory.BulletFactory;
 
@@ -14,7 +14,7 @@ public class DirectShoot extends ShootStrategy{
     }
 
     @Override
-    public List<BaseBullet> shootWithStrategy(BaseAircraft src) {
+    public List<BaseBullet> shootWithStrategy(BaseEmoji src) {
         assert this.factory != null : "Bullet Type Not Specified!!!";
         List<BaseBullet> res = new LinkedList<>();
         int xSrc = src.getX();

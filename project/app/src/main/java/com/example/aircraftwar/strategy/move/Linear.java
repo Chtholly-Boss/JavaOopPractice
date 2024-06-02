@@ -5,7 +5,10 @@ import com.example.aircraftwar.basic.AbstractFlyingObject;
 public class Linear implements MoveStrategy{
     private int vx = 1;
     private int vy = 1;
-    private Linear(int _vx,int _vy) {
+    public Linear(){
+
+    }
+    private Linear(int _vx, int _vy) {
         this.vx = _vx;
         this.vy = _vy;
     }

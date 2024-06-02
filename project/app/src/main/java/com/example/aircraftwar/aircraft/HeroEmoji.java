@@ -6,23 +6,24 @@ import com.example.aircraftwar.factory.bulletFactory.HeroBulletFactory;
 import com.example.aircraftwar.manager.ImageManager;
 import com.example.aircraftwar.strategy.move.Stay;
 import com.example.aircraftwar.strategy.shoot.DirectShoot;
+import com.example.aircraftwar.strategy.shoot.DisperseShoot;
 
-public class HeroAircraft extends BaseAircraft{
-    private volatile static HeroAircraft __hero__;
+public class HeroEmoji extends BaseEmoji {
+    private volatile static HeroEmoji __hero__;
     private BulletFactory bulletFactory;
     private int maxHp;
-    private HeroAircraft() {
+    private HeroEmoji() {
         super(GameActivity.screenWidth/2, GameActivity.screenHeight- ImageManager.HERO_IMAGE.getHeight(), 0, 10, 1000);
         this.maxHp = 1000;
         this.setMovePattern(new Stay()); // Controlled by Player
         this.bulletFactory = new HeroBulletFactory();
-        this.shootStrategy = new DirectShoot(bulletFactory);
+        this.shootStrategy = new DisperseShoot(bulletFactory);
     }
-    public static HeroAircraft getInstance() {
+    public static HeroEmoji getInstance() {
         if (__hero__ == null) {
-            synchronized (HeroAircraft.class) {
+            synchronized (HeroEmoji.class) {
                 if (__hero__ == null) {
-                    __hero__ = new HeroAircraft();
+                    __hero__ = new HeroEmoji();
                 }
             }
         }

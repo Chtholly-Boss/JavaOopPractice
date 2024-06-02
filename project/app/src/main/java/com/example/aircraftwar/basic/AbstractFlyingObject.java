@@ -2,7 +2,7 @@ package com.example.aircraftwar.basic;
 
 import android.graphics.Bitmap;
 
-import com.example.aircraftwar.aircraft.BaseAircraft;
+import com.example.aircraftwar.aircraft.BaseEmoji;
 import com.example.aircraftwar.manager.ImageManager;
 import com.example.aircraftwar.strategy.move.MoveStrategy;
 
@@ -11,7 +11,7 @@ public abstract class AbstractFlyingObject {
     protected int y;
     protected int vx;
     protected int vy;
-    protected int directionX = -1;
+    protected int directionX = 1;
     protected int directionY = -1;
     protected Bitmap image;
     protected int width = -1;
@@ -99,8 +99,8 @@ public abstract class AbstractFlyingObject {
     }
 
     public boolean crash(AbstractFlyingObject that) {
-        int factor = this instanceof BaseAircraft ? 2 : 1;
-        int tFactor = that instanceof BaseAircraft ? 2 : 1;
+        int factor = this instanceof BaseEmoji ? 2 : 1;
+        int tFactor = that instanceof BaseEmoji ? 2 : 1;
         int thatX = that.getX();
         int thatY = that.getY();
         int thatWidth = that.getWidth();

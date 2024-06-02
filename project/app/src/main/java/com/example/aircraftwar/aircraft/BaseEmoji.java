@@ -6,13 +6,13 @@ import com.example.aircraftwar.strategy.shoot.ShootStrategy;
 
 import java.util.List;
 
-public abstract class BaseAircraft extends AbstractFlyingObject {
+public abstract class BaseEmoji extends AbstractFlyingObject {
     protected int hp;
     protected ShootStrategy shootStrategy;
-    public BaseAircraft(int _x, int _y, int _vx, int _vy) {
+    public BaseEmoji(int _x, int _y, int _vx, int _vy) {
         super(_x, _y, _vx, _vy);
     }
-    public BaseAircraft(int _x, int _y, int _vx, int _vy,int _hp) {
+    public BaseEmoji(int _x, int _y, int _vx, int _vy, int _hp) {
         super(_x, _y, _vx, _vy);
         this.hp = _hp;
     }

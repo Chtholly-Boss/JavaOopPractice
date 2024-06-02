@@ -1,7 +1,5 @@
 package com.example.aircraftwar.item;
 
-import com.example.aircraftwar.aircraft.HeroAircraft;
-
 public class HealFixedItem extends BaseItem{
     private int recoverHp = 500;
 
@@ -13,6 +11,7 @@ public class HealFixedItem extends BaseItem{
     public boolean onEffect() {
         if (this.crash(hero)) {
             hero.addHp(recoverHp);
+            this.vanish();
             return true;
         }
         return false;

@@ -1,8 +1,9 @@
 package com.example.aircraftwar.strategy.shoot;
 
-import com.example.aircraftwar.aircraft.BaseAircraft;
+import com.example.aircraftwar.aircraft.BaseEmoji;
 import com.example.aircraftwar.bullet.BaseBullet;
 import com.example.aircraftwar.factory.bulletFactory.BulletFactory;
+import com.example.aircraftwar.strategy.move.Linear;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class DisperseShoot extends ShootStrategy{
     }
 
     @Override
-    public List<BaseBullet> shootWithStrategy(BaseAircraft src) {
+    public List<BaseBullet> shootWithStrategy(BaseEmoji src) {
         assert this.factory != null : "Bullet Type Not Specified!!!";
         List<BaseBullet> res = new LinkedList<>();
         int directionY = src.getDirectionY();
@@ -25,9 +26,11 @@ public class DisperseShoot extends ShootStrategy{
             bullet = this.factory.makeBullet();
             bullet.setX(x + (i * 2 - this.shootNum + 1) * 25);
             bullet.setY(y);
-            bullet.setVx(src.getVx() + (i * 2 - this.shootNum + 1));
-            bullet.setVy(src.getVy());
             bullet.setPower(this.power);
+            bullet.setDirectionY(src.getDirectionY());
+            bullet.setDirectionX(src.getDirectionX());
+            bullet.setMovePattern(new Linear().setSpeed(src.getVx() + (i * 2 - this.shootNum + 1)
+                    ,src.getVy()));
             res.add(bullet);
         }
         return res;

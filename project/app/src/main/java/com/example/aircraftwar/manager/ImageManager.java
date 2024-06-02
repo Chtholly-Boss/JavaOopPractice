@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.aircraftwar.R;
-import com.example.aircraftwar.aircraft.HeroAircraft;
-import com.example.aircraftwar.aircraft.enemy.EliteEnemyAircraft;
+import com.example.aircraftwar.aircraft.HeroEmoji;
+import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_1;
+import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_2;
+import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_3;
 import com.example.aircraftwar.bullet.HeroBullet;
 import com.example.aircraftwar.item.HealFixedItem;
-import com.example.aircraftwar.item.ShootBulletAdd;
+import com.example.aircraftwar.item.ShootBulletAddItem;
 import com.example.aircraftwar.item.ShootPowerAddItem;
 import com.example.aircraftwar.item.ShootSpeedAddItem;
 
@@ -20,12 +22,11 @@ public class ImageManager {
     private static final Map<String, Bitmap> CLASSNAME_IMAGE_MAP = new HashMap<>();
     // Stage Background Image:
     public static Bitmap STAGE_1_IMAGE;
-    public static Bitmap STAGE_2_IMAGE;
-    public static Bitmap STAGE_3_IMAGE;
-    public static Bitmap STAGE_4_IMAGE;
     // Character Image:
     public static Bitmap HERO_IMAGE;
-    public static Bitmap ELITE_ENEMY_IMAGE;
+    public static Bitmap ENEMY_MOB_1_IMAGE;
+    public static Bitmap ENEMY_MOB_2_IMAGE;
+    public static Bitmap ENEMY_MOB_3_IMAGE;
     // Bullet Image:
     public static Bitmap HERO_BULLET_IMAGE;
     // Item Images:
@@ -40,19 +41,20 @@ public class ImageManager {
         initItemImage(context);
     }
     private static void initStageImage(Context context) {
-        ImageManager.STAGE_1_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.stage_1);
-        ImageManager.STAGE_2_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.stage_2);
-        ImageManager.STAGE_3_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.stage_3);
-        ImageManager.STAGE_4_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.stage_4);
+        ImageManager.STAGE_1_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.stage_2);
     }
 
 
     private static void initAircraftImage(Context context) {
-        ImageManager.HERO_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.hero);
-        CLASSNAME_IMAGE_MAP.put(HeroAircraft.class.getName(), HERO_IMAGE);
+        ImageManager.HERO_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.emoji_1);
+        CLASSNAME_IMAGE_MAP.put(HeroEmoji.class.getName(), HERO_IMAGE);
 
-        ImageManager.ELITE_ENEMY_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.elite);
-        CLASSNAME_IMAGE_MAP.put(EliteEnemyAircraft.class.getName(),ELITE_ENEMY_IMAGE);
+        ImageManager.ENEMY_MOB_1_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.emoji_9);
+        CLASSNAME_IMAGE_MAP.put(EnemyEmojiMob_1.class.getName(), ENEMY_MOB_1_IMAGE);
+        ImageManager.ENEMY_MOB_2_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.emoji_15);
+        CLASSNAME_IMAGE_MAP.put(EnemyEmojiMob_2.class.getName(),ENEMY_MOB_2_IMAGE);
+        ImageManager.ENEMY_MOB_3_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.emoji_22);
+        CLASSNAME_IMAGE_MAP.put(EnemyEmojiMob_3.class.getName(),ENEMY_MOB_3_IMAGE);
     }
 
 
@@ -70,7 +72,7 @@ public class ImageManager {
         ImageManager.ITEM_SHOOT_SPEED_ADD = BitmapFactory.decodeResource(context.getResources(),R.drawable.shoot_speed_add);
         CLASSNAME_IMAGE_MAP.put(ShootSpeedAddItem.class.getName(),ITEM_SHOOT_SPEED_ADD);
         ImageManager.ITEM_SHOOT_BULLET_ADD = BitmapFactory.decodeResource(context.getResources(),R.drawable.shoot_bullet_add);
-        CLASSNAME_IMAGE_MAP.put(ShootBulletAdd.class.getName(),ITEM_SHOOT_BULLET_ADD);
+        CLASSNAME_IMAGE_MAP.put(ShootBulletAddItem.class.getName(),ITEM_SHOOT_BULLET_ADD);
     }
 
     public static Bitmap get(String className) {

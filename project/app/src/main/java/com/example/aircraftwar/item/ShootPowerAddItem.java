@@ -11,6 +11,7 @@ public class ShootPowerAddItem extends BaseItem{
     public boolean onEffect() {
         if (this.crash(hero)) {
             hero.getShootStrategy().addPower(powerDelta);
+            this.vanish();
             return true;
         }
         return false;

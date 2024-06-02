@@ -1,6 +1,6 @@
 package com.example.aircraftwar.bullet;
 
-import com.example.aircraftwar.aircraft.BaseAircraft;
+import com.example.aircraftwar.aircraft.BaseEmoji;
 import com.example.aircraftwar.strategy.move.Forward;
 
 public class HeroBullet extends BaseBullet{
@@ -12,7 +12,7 @@ public class HeroBullet extends BaseBullet{
     }
 
     @Override
-    public boolean hitObject(BaseAircraft that) {
+    public boolean hitObject(BaseEmoji that) {
         if (this.crash(that)) {
             that.addHp(-this.power);
             this.vanish();

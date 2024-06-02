@@ -1,8 +1,6 @@
 package com.example.aircraftwar.factory.enemyFactory;
 
-import com.example.aircraftwar.activity.GameActivity;
-import com.example.aircraftwar.aircraft.enemy.BaseEnemyAircraft;
-import com.example.aircraftwar.manager.ImageManager;
+import com.example.aircraftwar.aircraft.enemy.BaseEnemyEmoji;
 
 public abstract class EnemyFactory {
     // Optional Properties here
@@ -31,5 +29,5 @@ public abstract class EnemyFactory {
     public void setVy(int vy) {
         this.vy = vy;
     }
-    public abstract BaseEnemyAircraft makeEnemy();
+    public abstract BaseEnemyEmoji makeEnemy();
 }

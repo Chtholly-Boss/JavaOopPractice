@@ -1,6 +1,6 @@
 package com.example.aircraftwar.strategy.shoot;
 
-import com.example.aircraftwar.aircraft.BaseAircraft;
+import com.example.aircraftwar.aircraft.BaseEmoji;
 import com.example.aircraftwar.bullet.BaseBullet;
 import com.example.aircraftwar.factory.bulletFactory.BulletFactory;
 
@@ -38,5 +38,5 @@ public abstract class ShootStrategy {
         this.shootInterval = shootInterval;
     }
 
-    public abstract List<BaseBullet> shootWithStrategy(BaseAircraft src);
+    public abstract List<BaseBullet> shootWithStrategy(BaseEmoji src);
 }
