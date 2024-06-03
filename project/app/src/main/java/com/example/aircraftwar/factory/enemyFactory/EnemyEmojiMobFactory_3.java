@@ -3,10 +3,11 @@ package com.example.aircraftwar.factory.enemyFactory;
 import com.example.aircraftwar.activity.GameActivity;
 import com.example.aircraftwar.aircraft.enemy.BaseEnemyEmoji;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_3;
-import com.example.aircraftwar.factory.bulletFactory.BulletFactory;
-import com.example.aircraftwar.factory.bulletFactory.HeroBulletFactory;
+import com.example.aircraftwar.factory.bulletFactory.GreenBulletFactory;
+import com.example.aircraftwar.factory.bulletFactory.PureBulletFactory;
 import com.example.aircraftwar.manager.ImageManager;
 import com.example.aircraftwar.strategy.move.Forward;
+import com.example.aircraftwar.strategy.shoot.DirectShoot;
 import com.example.aircraftwar.strategy.shoot.DontShoot;
 
 public class EnemyEmojiMobFactory_3 extends EnemyFactory{
@@ -18,10 +19,12 @@ public class EnemyEmojiMobFactory_3 extends EnemyFactory{
         this.vx = (int) ((Math.random() - 0.5) * 20);
         this.vy = 5;
         this.hp = 60;
-        this.bulletFactory = new HeroBulletFactory();
+        this.bulletFactory = new PureBulletFactory();
         BaseEnemyEmoji res = new EnemyEmojiMob_3(x,y,vx,vy);
         res.setMovePattern(new Forward().setSpeed(this.vy));
-        res.setShootStrategy(new DontShoot(bulletFactory));
+        res.setBulletFactory(new PureBulletFactory());
+        res.setShootStrategy(new DirectShoot(bulletFactory));
+        res.getShootStrategy().setShootInterval(1000);
         return res;
     }
 }

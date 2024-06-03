@@ -2,12 +2,14 @@ package com.example.aircraftwar.aircraft;
 
 import com.example.aircraftwar.basic.AbstractFlyingObject;
 import com.example.aircraftwar.bullet.BaseBullet;
+import com.example.aircraftwar.factory.bulletFactory.BulletFactory;
 import com.example.aircraftwar.strategy.shoot.ShootStrategy;
 
 import java.util.List;
 
 public abstract class BaseEmoji extends AbstractFlyingObject {
     protected int hp;
+    protected BulletFactory bulletFactory;
     protected ShootStrategy shootStrategy;
     public BaseEmoji(int _x, int _y, int _vx, int _vy) {
         super(_x, _y, _vx, _vy);
@@ -39,5 +41,9 @@ public abstract class BaseEmoji extends AbstractFlyingObject {
     public List<BaseBullet> shoot() {
         assert shootStrategy != null : "Shoot Strategy unset!!!";
         return shootStrategy.shootWithStrategy(this);
+    }
+
+    public void setBulletFactory(BulletFactory bulletFactory) {
+        this.bulletFactory = bulletFactory;
     }
 }

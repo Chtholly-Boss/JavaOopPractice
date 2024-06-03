@@ -1,13 +1,35 @@
 # Java OOP Design
 Academic Project of Java OOP Design (Practice).
 
-## Design
+## Character
+### Hero
 
-### EnemyAircraft
-During its creating time, the only class that can set the properties of the enemy should be the factory.
-During its exiting time, only bullets and bombItem can affect its HP.
-During its Elapsing time, only method vanish() can make it invalid.
-### Bullet
-Created by Factory,but set properties in Strategy.
-### Item
-Created by Factory,called by enemy.
+### Enemy
+Parameters should be set in the Corresponding factory.
+Parameters:
+- Position and Speed
+- Move Pattern
+- Shoot Strategy
+- Bullet Type: Set by BulletFactory
+## Item
+
+## Bullet
+Parameters should be set in the Corresponding factory.
+Parameters:
+- Position and Speed
+- Power
+- Move Pattern
+
+## Strategy
+### Shoot Strategy
+Responsible for specifying a shoot Pattern,including: 
+- Bullet Parameters
+- Bullet Distributions
+
+### Move Strategy
+Responsible for updating a flying object's coordinate.
+Consist of the followings: 
+- Updating Logic
+- Bound Check
+
+## Utils

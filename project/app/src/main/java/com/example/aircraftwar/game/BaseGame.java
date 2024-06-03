@@ -46,6 +46,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     protected int cycleTime = 0;
     protected int cycleBreakPoint = 10000;
     protected int score = 0;
+    protected boolean isBossExist = false;
     protected boolean gameOver = false;
 
     public BaseGame(Context context) {

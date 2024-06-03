@@ -2,21 +2,19 @@ package com.example.aircraftwar.aircraft;
 
 import com.example.aircraftwar.activity.GameActivity;
 import com.example.aircraftwar.factory.bulletFactory.BulletFactory;
-import com.example.aircraftwar.factory.bulletFactory.HeroBulletFactory;
+import com.example.aircraftwar.factory.bulletFactory.GreenBulletFactory;
 import com.example.aircraftwar.manager.ImageManager;
 import com.example.aircraftwar.strategy.move.Stay;
-import com.example.aircraftwar.strategy.shoot.DirectShoot;
 import com.example.aircraftwar.strategy.shoot.DisperseShoot;
 
 public class HeroEmoji extends BaseEmoji {
     private volatile static HeroEmoji __hero__;
-    private BulletFactory bulletFactory;
     private int maxHp;
     private HeroEmoji() {
         super(GameActivity.screenWidth/2, GameActivity.screenHeight- ImageManager.HERO_IMAGE.getHeight(), 0, 10, 1000);
         this.maxHp = 1000;
         this.setMovePattern(new Stay()); // Controlled by Player
-        this.bulletFactory = new HeroBulletFactory();
+        this.bulletFactory = new GreenBulletFactory();
         this.shootStrategy = new DisperseShoot(bulletFactory);
     }
     public static HeroEmoji getInstance() {

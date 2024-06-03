@@ -37,14 +37,21 @@ public class OfflineActivity extends AppCompatActivity implements View.OnClickLi
         btnNormal = (Button) findViewById(R.id.btnNormal);
         btnHard = (Button) findViewById(R.id.btnHard);
         btnEasy.setOnClickListener(this);
+        btnNormal.setOnClickListener(this);
+        btnHard.setOnClickListener(this);
     }
     @Override
     public void onClick(View view){
-        if (view.getId() == R.id.btnEasy) {
+        int selectId = view.getId();
+        if (selectId == R.id.btnEasy) {
             gameType = 1;
-            Intent intent = new Intent(OfflineActivity.this, GameActivity.class);
-            intent.putExtra("gameType",gameType);
-            startActivity(intent);
+        } else if (selectId == R.id.btnNormal) {
+            gameType = 2;
+        } else if (selectId == R.id.btnHard) {
+            gameType = 3;
         }
+        Intent intent = new Intent(OfflineActivity.this, GameActivity.class);
+        intent.putExtra("gameType",gameType);
+        startActivity(intent);
     }
 }

@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class EasyGame extends BaseGame{
+public class HardGame extends BaseGame{
     private int enemyProduceInterval = 200;
-    private int maxEnemyNum = 5;
+    private int maxEnemyNum = 10;
     private Map<Supplier<BaseEnemyEmoji>,Double> enemyProbabilities;
     private WeightedRandomSelector<BaseEnemyEmoji> selector;
-    public EasyGame(Context context) {
+    public HardGame(Context context) {
         super(context);
-        this.background = ImageManager.STAGE_1_IMAGE;
+        this.background = ImageManager.STAGE_3_IMAGE;
         enemyProbabilities = Map.of(
                 () -> enemyEmojiMobFactory_1.makeEnemy(),0.5,
                 () -> enemyEmojiMobFactory_2.makeEnemy(), 0.8,

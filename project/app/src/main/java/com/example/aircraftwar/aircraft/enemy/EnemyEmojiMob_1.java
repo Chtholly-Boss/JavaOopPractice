@@ -1,7 +1,11 @@
 package com.example.aircraftwar.aircraft.enemy;
 
+import com.example.aircraftwar.factory.bulletFactory.GreenBulletFactory;
+import com.example.aircraftwar.factory.bulletFactory.PureBulletFactory;
 import com.example.aircraftwar.factory.itemFactory.HealFixedItemFactory;
 import com.example.aircraftwar.item.BaseItem;
+import com.example.aircraftwar.strategy.shoot.DirectShoot;
+import com.example.aircraftwar.strategy.shoot.DisperseShoot;
 import com.example.aircraftwar.utils.WeightedRandomSelector;
 
 import java.util.LinkedList;

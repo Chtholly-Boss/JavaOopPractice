@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class ShootStrategy {
     protected int shootNum = 2;
-    protected int power = 0;
+    protected int power = 100;
     protected int shootInterval = 100; // ms
     protected BulletFactory factory;
 

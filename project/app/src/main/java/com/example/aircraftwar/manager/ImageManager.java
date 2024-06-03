@@ -10,7 +10,8 @@ import com.example.aircraftwar.aircraft.enemy.EnemyEmojiBoss_1;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_1;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_2;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_3;
-import com.example.aircraftwar.bullet.HeroBullet;
+import com.example.aircraftwar.bullet.GreenBullet;
+import com.example.aircraftwar.bullet.PureBullet;
 import com.example.aircraftwar.item.HealFixedItem;
 import com.example.aircraftwar.item.ShootBulletAddItem;
 import com.example.aircraftwar.item.ShootPowerAddItem;
@@ -23,6 +24,8 @@ public class ImageManager {
     private static final Map<String, Bitmap> CLASSNAME_IMAGE_MAP = new HashMap<>();
     // Stage Background Image:
     public static Bitmap STAGE_1_IMAGE;
+    public static Bitmap STAGE_2_IMAGE;
+    public static Bitmap STAGE_3_IMAGE;
     // Character Image:
     public static Bitmap HERO_IMAGE;
     public static Bitmap ENEMY_MOB_1_IMAGE;
@@ -30,7 +33,9 @@ public class ImageManager {
     public static Bitmap ENEMY_MOB_3_IMAGE;
     public static Bitmap ENEMY_BOSS_1_IMAGE;
     // Bullet Image:
-    public static Bitmap HERO_BULLET_IMAGE;
+    public static Bitmap GREEN_BULLET_IMAGE;
+    public static Bitmap PURE_BULLET_IMAGE;
+    public static Bitmap GOLDEN_BULLET_IMAGE;
     // Item Images:
     public static Bitmap ITEM_HEAL_FIXED;
     public static Bitmap ITEM_SHOOT_POWER_ADD;
@@ -43,7 +48,9 @@ public class ImageManager {
         initItemImage(context);
     }
     private static void initStageImage(Context context) {
-        ImageManager.STAGE_1_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.stage_2);
+        ImageManager.STAGE_1_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg);
+        ImageManager.STAGE_2_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.bg2);
+        ImageManager.STAGE_3_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.bg3);
     }
 
 
@@ -64,8 +71,11 @@ public class ImageManager {
 
 
     private static void initBulletImage(Context context) {
-        ImageManager.HERO_BULLET_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.hero_bullet);
-        CLASSNAME_IMAGE_MAP.put(HeroBullet.class.getName(),HERO_BULLET_IMAGE);
+        ImageManager.GREEN_BULLET_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.mana_prism);
+        CLASSNAME_IMAGE_MAP.put(GreenBullet.class.getName(), GREEN_BULLET_IMAGE);
+        ImageManager.PURE_BULLET_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.pure_prism);
+        CLASSNAME_IMAGE_MAP.put(PureBullet.class.getName(),PURE_BULLET_IMAGE);
+        ImageManager.GOLDEN_BULLET_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.rare_prism);
     }
 
 

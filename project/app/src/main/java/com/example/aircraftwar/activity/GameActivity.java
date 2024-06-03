@@ -9,12 +9,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.aircraftwar.game.BaseGame;
 import com.example.aircraftwar.game.EasyGame;
+import com.example.aircraftwar.game.HardGame;
+import com.example.aircraftwar.game.MidGame;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Supplier;
 
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
     public static int screenWidth;
     public static int screenHeight;
     private int gameType;
+    private Map<Integer, Supplier<BaseGame>> hardLevelMap = Map.of(
+            1,() -> new EasyGame(this),
+            2,() -> new MidGame(this),
+            3,() -> new HardGame(this)
+    );
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,9 +33,9 @@ public class GameActivity extends AppCompatActivity {
         getScreenParams();
         if (getIntent() != null) {
             gameType = getIntent().getIntExtra("gameType", 1);
+            System.out.println("gameType: " + gameType);
         }
-        // TODO : Choose Game corresponding to Game Type
-        BaseGame baseGameView = new EasyGame(this);
+        BaseGame baseGameView = Objects.requireNonNull(hardLevelMap.get(gameType)).get();
         setContentView(baseGameView);
     }
     private void getScreenParams(){
