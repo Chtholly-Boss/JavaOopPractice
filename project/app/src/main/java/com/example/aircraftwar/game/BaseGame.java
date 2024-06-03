@@ -24,8 +24,10 @@ import com.example.aircraftwar.factory.enemyFactory.EnemyFactory;
 import com.example.aircraftwar.item.BaseItem;
 import com.example.aircraftwar.manager.ImageManager;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Stream;
 
 public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Callback,Runnable {
     public static final String TAG = "BaseGame";
@@ -97,10 +99,9 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
             enemys.addAll(produceEnemy());
             shootAction();
             // Routines
-            this.enemys.forEach(AbstractFlyingObject::move);
-            this.bulletsOfHero.forEach(AbstractFlyingObject::move);
-            this.bulletsOfEnemy.forEach(AbstractFlyingObject::move);
-            this.items.forEach(AbstractFlyingObject::move);
+            Stream.of(this.enemys, this.bulletsOfHero, this.bulletsOfEnemy, this.items)
+                    .flatMap(Collection::stream)
+                    .forEach(AbstractFlyingObject::move);
 
             this.bulletsOfHero.forEach(bullet -> this.enemys.forEach(enemy -> {
                if (bullet.hitObject(enemy)) {
@@ -153,21 +154,13 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         mCanvas.drawBitmap(background,0, backgroundTop-background.getHeight(),mPaint);
         mCanvas.drawBitmap(background,0,backgroundTop,mPaint);
         backgroundTop = backgroundTop == background.getHeight() ? 0 : backgroundTop + 1;
-        paintWithPositionRevised(bulletsOfEnemy);
-        paintWithPositionRevised(bulletsOfHero);
-        paintWithPositionRevised(enemys);
-        paintWithPositionRevised(items);
-        paintWithPositionRevised(hero);
+        Stream.concat(Stream.of(this.hero), Stream.of(this.bulletsOfEnemy, this.bulletsOfHero, this.enemys, this.items).flatMap(Collection::stream))
+                .forEach(this::paintWithPositionRevised);
         mPaint.setColor(Color.WHITE);
         mPaint.setTextSize(50);
         mCanvas.drawText("Score: " + this.score,0,50,mPaint);
         mCanvas.drawText("HP: " + hero.getHp(),0,100,mPaint);
         mSurfaceHolder.unlockCanvasAndPost(mCanvas);
-
-    }
-    private void paintWithPositionRevised(List<? extends AbstractFlyingObject> objects) {
-        if (objects.size() == 0) return;
-        objects.forEach(this::paintWithPositionRevised);
     }
     private void paintWithPositionRevised(AbstractFlyingObject obj) {
         Bitmap image = obj.getImage();

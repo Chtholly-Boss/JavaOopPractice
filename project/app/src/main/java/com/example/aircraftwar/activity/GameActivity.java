@@ -33,7 +33,6 @@ public class GameActivity extends AppCompatActivity {
         getScreenParams();
         if (getIntent() != null) {
             gameType = getIntent().getIntExtra("gameType", 1);
-            System.out.println("gameType: " + gameType);
         }
         BaseGame baseGameView = Objects.requireNonNull(hardLevelMap.get(gameType)).get();
         setContentView(baseGameView);
