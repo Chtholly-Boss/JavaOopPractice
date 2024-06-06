@@ -29,6 +29,8 @@ public class GameActivity extends AppCompatActivity {
     public static int screenWidth;
     public static int screenHeight;
     private int gameType;
+
+    private boolean isSound;
     private Handler gameActivityHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -52,9 +54,9 @@ public class GameActivity extends AppCompatActivity {
 
     });
     private Map<Integer, Supplier<BaseGame>> hardLevelMap = Map.of(
-            1,() -> new EasyGame(this, gameActivityHandler),
-            2,() -> new MidGame(this, gameActivityHandler),
-        3,() -> new HardGame(this, gameActivityHandler)
+            1,() -> new EasyGame(this, gameActivityHandler,isSound),
+            2,() -> new MidGame(this, gameActivityHandler, isSound),
+        3,() -> new HardGame(this, gameActivityHandler, isSound)
     );
 
 
@@ -66,6 +68,7 @@ public class GameActivity extends AppCompatActivity {
         getScreenParams();
         if (getIntent() != null) {
             gameType = getIntent().getIntExtra("gameType", 1);
+            isSound = getIntent().getBooleanExtra("sound", false);
         }
         BaseGame baseGameView = Objects.requireNonNull(hardLevelMap.get(gameType)).get();
         setContentView(baseGameView);

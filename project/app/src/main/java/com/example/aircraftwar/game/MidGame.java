@@ -18,8 +18,8 @@ public class MidGame extends BaseGame{
     private int maxEnemyNum = 8;
     private Map<Supplier<BaseEnemyEmoji>,Double> enemyProbabilities;
     private WeightedRandomSelector<BaseEnemyEmoji> selector;
-    public MidGame(Context context, Handler handler) {
-        super(context, handler);
+    public MidGame(Context context, Handler handler, boolean isSound) {
+        super(context, handler, isSound);
         this.background = ImageManager.STAGE_2_IMAGE;
         enemyProbabilities = Map.of(
                 () -> enemyEmojiMobFactory_1.makeEnemy(),0.5,

@@ -18,8 +18,8 @@ public class HardGame extends BaseGame{
     private int maxEnemyNum = 10;
     private Map<Supplier<BaseEnemyEmoji>,Double> enemyProbabilities;
     private WeightedRandomSelector<BaseEnemyEmoji> selector;
-    public HardGame(Context context, Handler handler) {
-        super(context, handler);
+    public HardGame(Context context, Handler handler, boolean isSound) {
+        super(context, handler, isSound);
         this.background = ImageManager.STAGE_3_IMAGE;
         enemyProbabilities = Map.of(
                 () -> enemyEmojiMobFactory_1.makeEnemy(),0.5,

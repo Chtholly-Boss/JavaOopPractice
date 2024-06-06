@@ -216,6 +216,6 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }
-        Toast.makeText(RecordActivity.this, "Succssesfully Saved", Toast.LENGTH_LONG).show();
+        Toast.makeText(RecordActivity.this, "Successfully Saved", Toast.LENGTH_LONG).show();
     }
 }

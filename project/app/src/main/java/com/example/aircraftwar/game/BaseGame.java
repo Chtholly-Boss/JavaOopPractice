@@ -6,15 +6,16 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.aircraftwar.R;
 import com.example.aircraftwar.activity.GameActivity;
 import com.example.aircraftwar.aircraft.HeroEmoji;
 import com.example.aircraftwar.aircraft.enemy.BaseEnemyEmoji;
@@ -26,12 +27,9 @@ import com.example.aircraftwar.factory.enemyFactory.EnemyEmojiMobFactory_3;
 import com.example.aircraftwar.factory.enemyFactory.EnemyFactory;
 import com.example.aircraftwar.item.BaseItem;
 import com.example.aircraftwar.manager.ImageManager;
+import com.example.aircraftwar.manager.MusicManager;
 
-import org.chromium.base.Callback;
-
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
@@ -56,15 +54,31 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     protected int cycleTime = 0;
     protected int cycleBreakPoint = 10000;
     protected int score = 0;
+
+    protected boolean isSound = false;
     protected boolean isBossExist = false;
     protected boolean gameOver = false;
 
     protected Handler gameHandler;
 
+    protected MusicManager musicManager;
 
-    public BaseGame(Context context, Handler gameActivityHandler) {
+
+
+    public BaseGame(Context context, Handler gameActivityHandler, boolean isSound) {
         super(context);
         // Initialize Paint Tools
+        musicManager = MusicManager.getInstance();
+        musicManager.setContext(context);
+
+        // 初始化音效
+        musicManager.initializeSound("bgm", R.raw.bgm_game);
+        musicManager.initializeSound("bgm_boss", R.raw.bgm_boss2);
+
+        this.isSound = isSound;
+        if(isSound) {
+            musicManager.loopSound("bgm");
+        }
         this.gameHandler = gameActivityHandler;
         mIsDrawing = true;
         mPaint = new Paint();
@@ -106,7 +120,18 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     }
     public void action() {
         Runnable task = () -> {
+
             // TODO : New Cycle Action to be defined
+            if(isSound){
+                if(isBossExist){
+                    musicManager.pauseSound("bgm");
+                    musicManager.loopSound("bgm_boss");
+                }
+                else{
+                    musicManager.pauseSound("bgm_boss");
+                    musicManager.loopSound("bgm");
+                }
+            }
             timeCountAndNewCycleJudge();
             enemys.addAll(produceEnemy());
             shootAction();
@@ -158,6 +183,12 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         }
     }
     private void endProcess() {
+        if(isSound){
+            musicManager.stopSound("bgm");
+            musicManager.stopSound("boss_bgm");
+            musicManager.releaseSound("bgm");
+            musicManager.releaseSound("boss_bgm");
+        }
         // 创建一个Message对象，附加score数据，并发送
         Message message = gameHandler.obtainMessage(GAME_OVER, score);
         gameHandler.sendMessage(message);

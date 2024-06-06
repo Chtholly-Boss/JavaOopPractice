@@ -52,6 +52,7 @@ public class OfflineActivity extends AppCompatActivity implements View.OnClickLi
         }
         Intent intent = new Intent(OfflineActivity.this, GameActivity.class);
         intent.putExtra("gameType",gameType);
+        intent.putExtra("sound", isSoundEffectOn);
         //Intent intent = new Intent(OfflineActivity.this, RecordActivity.class);
         startActivity(intent);
         finish();
