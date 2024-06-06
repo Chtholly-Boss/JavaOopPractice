@@ -6,6 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Looper;
+import android.os.Message;
+import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -24,13 +27,18 @@ import com.example.aircraftwar.factory.enemyFactory.EnemyFactory;
 import com.example.aircraftwar.item.BaseItem;
 import com.example.aircraftwar.manager.ImageManager;
 
+import org.chromium.base.Callback;
+
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
 public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Callback,Runnable {
     public static final String TAG = "BaseGame";
+    public final int GAME_OVER = 1;
     protected boolean mIsDrawing;
     protected Canvas mCanvas;
     protected final Paint mPaint;
@@ -51,9 +59,13 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     protected boolean isBossExist = false;
     protected boolean gameOver = false;
 
-    public BaseGame(Context context) {
+    protected Handler gameHandler;
+
+
+    public BaseGame(Context context, Handler gameActivityHandler) {
         super(context);
         // Initialize Paint Tools
+        this.gameHandler = gameActivityHandler;
         mIsDrawing = true;
         mPaint = new Paint();
         mSurfaceHolder = this.getHolder();
@@ -141,9 +153,15 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
             this.gameOver = true;
             this.mIsDrawing = false;
             Log.i(TAG,"HeroAircraft is not valid.");
+            endProcess();
+
         }
     }
-
+    private void endProcess() {
+        // 创建一个Message对象，附加score数据，并发送
+        Message message = gameHandler.obtainMessage(GAME_OVER, score);
+        gameHandler.sendMessage(message);
+    }
     public int getScore() {
         return score;
     }
@@ -192,4 +210,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
             draw();
         }
     }
+
+
+
 }

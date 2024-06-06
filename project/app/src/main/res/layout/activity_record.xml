@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".activity.RecordActivity"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/tvRTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mode"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,13 +46,13 @@
         android:id="@+id/LV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="20"/>
+        android:layout_weight="10"/>
     <Button
         android:id="@+id/btnExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Save &amp; Exit"
+        android:text="Save"
         android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

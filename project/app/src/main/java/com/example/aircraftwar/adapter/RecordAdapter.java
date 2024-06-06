@@ -47,7 +47,7 @@ public class RecordAdapter extends BaseAdapter {
         }
         RecordBean recordBean = (RecordBean) records.get(i);
         viewHolder.tvTime.setText(String.valueOf(recordBean.getTime()));
-        viewHolder.tvRank.setText(recordBean.getRank());
+        viewHolder.tvRank.setText(String.valueOf(recordBean.getRank()));
         viewHolder.tvScore.setText(String.valueOf(recordBean.getScore()));
         viewHolder.tvName.setText(String.valueOf(recordBean.getName()));
         return view;

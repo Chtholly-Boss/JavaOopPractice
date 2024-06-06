@@ -45,4 +45,6 @@ public class RecordBean {
         this.score = score;
         this.time = time;
     }
+
+
 }

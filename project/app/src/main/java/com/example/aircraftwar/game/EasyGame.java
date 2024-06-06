@@ -1,6 +1,7 @@
 package com.example.aircraftwar.game;
 
 import android.content.Context;
+import android.os.Handler;
 
 import com.example.aircraftwar.aircraft.enemy.BaseEnemyEmoji;
 import com.example.aircraftwar.factory.enemyFactory.EnemyEmojiBossFactory_1;
@@ -17,8 +18,8 @@ public class EasyGame extends BaseGame{
     private int maxEnemyNum = 5;
     private Map<Supplier<BaseEnemyEmoji>,Double> enemyProbabilities;
     private WeightedRandomSelector<BaseEnemyEmoji> selector;
-    public EasyGame(Context context) {
-        super(context);
+    public EasyGame(Context context, Handler handler) {
+        super(context, handler);
         this.background = ImageManager.STAGE_1_IMAGE;
         enemyProbabilities = Map.of(
                 () -> enemyEmojiMobFactory_1.makeEnemy(),0.5,

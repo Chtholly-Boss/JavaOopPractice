@@ -10,6 +10,7 @@ import com.example.aircraftwar.strategy.shoot.DisperseShoot;
 public class HeroEmoji extends BaseEmoji {
     private volatile static HeroEmoji __hero__;
     private int maxHp;
+
     private HeroEmoji() {
         super(GameActivity.screenWidth/2, GameActivity.screenHeight- ImageManager.HERO_IMAGE.getHeight(), 0, 10, 1000);
         this.maxHp = 1000;
@@ -42,5 +43,11 @@ public class HeroEmoji extends BaseEmoji {
     public void addHp(int delta) {
         super.addHp(delta);
         if (this.hp > this.maxHp) this.hp = maxHp;
+    }
+
+    @Override
+    public void vanish(){
+        super.vanish();
+        __hero__ = null;
     }
 }
