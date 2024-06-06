@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.example.aircraftwar.aircraft.enemy.BaseEnemyEmoji;
-import com.example.aircraftwar.factory.enemyFactory.EnemyEmojiBossFactory_1;
+import com.example.aircraftwar.factory.enemyFactory.EnemyEmojiBossFactory_2;
 import com.example.aircraftwar.manager.ImageManager;
 import com.example.aircraftwar.utils.WeightedRandomSelector;
 
@@ -39,7 +39,7 @@ public class MidGame extends BaseGame{
             }
         }
         if (!isBossExist && score > 100) {
-            res.add(new EnemyEmojiBossFactory_1().makeEnemy());
+            res.add(new EnemyEmojiBossFactory_2().makeEnemy());
             isBossExist = true;
         }
         return res;
