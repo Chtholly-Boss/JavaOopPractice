@@ -44,6 +44,7 @@ public class GameActivity extends AppCompatActivity {
                 intent.putExtra("time", time);
                 intent.putExtra("gameType", gameType);
                 startActivity(intent);
+                finish();
                 return true;
             }
             return false;

@@ -54,5 +54,6 @@ public class OfflineActivity extends AppCompatActivity implements View.OnClickLi
         intent.putExtra("gameType",gameType);
         //Intent intent = new Intent(OfflineActivity.this, RecordActivity.class);
         startActivity(intent);
+        finish();
     }
 }

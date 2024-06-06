@@ -1,6 +1,7 @@
 package com.example.aircraftwar.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -130,11 +131,33 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
     }
     @Override
     public void onClick(View view){
-        try {
-            writeFile(fName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(RecordActivity.this);
+        builder.setTitle("Save & Exit").setMessage("Save the changes and exit?").setPositiveButton("Yes!",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        try {
+                            writeFile(fName);
+                            Intent intent = new Intent(RecordActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                });
+        builder.setNegativeButton("Don't Save", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(RecordActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.create().show();
+
 
     }
     public List<RecordBean> readFile(String strFilePath) throws IOException {
@@ -193,10 +216,6 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }
-
-
-
-
-
+        Toast.makeText(RecordActivity.this, "Succssesfully Saved", Toast.LENGTH_LONG).show();
     }
 }
