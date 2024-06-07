@@ -84,7 +84,4 @@ public class GameActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-
-
 }

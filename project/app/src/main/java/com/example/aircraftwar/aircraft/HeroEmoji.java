@@ -12,7 +12,7 @@ public class HeroEmoji extends BaseEmoji {
     private int maxHp;
 
     private HeroEmoji() {
-        super(GameActivity.screenWidth/2, GameActivity.screenHeight- ImageManager.HERO_IMAGE.getHeight(), 0, 10, 1000);
+        super(GameActivity.screenWidth/2, GameActivity.screenHeight - 2 * ImageManager.HERO_IMAGE.getHeight(), 0, 10, 1000);
         this.maxHp = 1000;
         this.setMovePattern(new Stay()); // Controlled by Player
         this.bulletFactory = new GreenBulletFactory();
