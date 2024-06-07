@@ -38,8 +38,9 @@ public class EasyGame extends BaseGame{
                 res.add(selector.selectRandomObject());
             }
         }
-        if (!isBossExist && score > 100) {
+        if (!isBossExist && score > bossThreshold) {
             res.add(new EnemyEmojiBossFactory_1().makeEnemy());
+            BaseGame.bossThreshold *= 10;
             isBossExist = true;
         }
         return res;

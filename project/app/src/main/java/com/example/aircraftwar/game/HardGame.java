@@ -39,8 +39,9 @@ public class HardGame extends BaseGame{
                 res.add(selector.selectRandomObject());
             }
         }
-        if (!isBossExist && score > 100) {
+        if (!isBossExist && score > bossThreshold) {
             res.add(new EnemyEmojiBossFactory_3().makeEnemy());
+            BaseGame.bossThreshold *= 10;
             isBossExist = true;
         }
         return res;
