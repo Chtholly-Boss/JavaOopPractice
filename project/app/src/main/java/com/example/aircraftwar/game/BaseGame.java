@@ -103,13 +103,13 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     }
     public void action() {
         Runnable task = () -> {
-            if(isBossExist){
-                MusicManager.pauseSound("bgm");
-                MusicManager.loopSound("bgm_boss");
-            }
-            else{
-
-            }
+//            if(isBossExist){
+//                MusicManager.pauseSound("bgm");
+//                MusicManager.loopSound("bgm_boss");
+//            }
+//            else{
+//
+//            }
             timeCountAndNewCycleJudge();
             enemys.addAll(produceEnemy());
             shootAction();
