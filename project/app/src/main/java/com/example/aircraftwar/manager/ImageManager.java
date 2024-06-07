@@ -8,6 +8,7 @@ import com.example.aircraftwar.R;
 import com.example.aircraftwar.aircraft.HeroEmoji;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiBoss_1;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiBoss_2;
+import com.example.aircraftwar.aircraft.enemy.EnemyEmojiBoss_3;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_1;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_2;
 import com.example.aircraftwar.aircraft.enemy.EnemyEmojiMob_3;
@@ -34,6 +35,7 @@ public class ImageManager {
     public static Bitmap ENEMY_MOB_3_IMAGE;
     public static Bitmap ENEMY_BOSS_1_IMAGE;
     public static Bitmap ENEMY_BOSS_2_IMAGE;
+    public static Bitmap ENEMY_BOSS_3_IMAGE;
     // Bullet Image:
     public static Bitmap GREEN_BULLET_IMAGE;
     public static Bitmap PURE_BULLET_IMAGE;
@@ -71,6 +73,8 @@ public class ImageManager {
         CLASSNAME_IMAGE_MAP.put(EnemyEmojiBoss_1.class.getName(),ENEMY_BOSS_1_IMAGE);
         ImageManager.ENEMY_BOSS_2_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.boss_two);
         CLASSNAME_IMAGE_MAP.put(EnemyEmojiBoss_2.class.getName(),ENEMY_BOSS_2_IMAGE);
+        ImageManager.ENEMY_BOSS_3_IMAGE = BitmapFactory.decodeResource(context.getResources(),R.drawable.boss_love);
+        CLASSNAME_IMAGE_MAP.put(EnemyEmojiBoss_3.class.getName(),ENEMY_BOSS_3_IMAGE);
     }
 
 

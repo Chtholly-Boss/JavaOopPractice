@@ -14,7 +14,7 @@ public class EnemyEmojiBossFactory_2 extends EnemyFactory{
     public BaseEnemyEmoji makeEnemy() {
         this.x = ImageManager.ENEMY_BOSS_1_IMAGE.getWidth() /2;
         this.y = ImageManager.ENEMY_BOSS_1_IMAGE.getHeight() / 2;
-        this.hp = 3000;
+        this.hp = 5000;
         this.bulletFactory = new PureBulletFactory();
         BaseEnemyEmoji res = new EnemyEmojiBoss_2(x,y,0,0);
         res.setDirectionY(1);
