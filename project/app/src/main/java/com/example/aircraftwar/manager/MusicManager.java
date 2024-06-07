@@ -74,7 +74,7 @@ public class MusicManager {
     }
     private static void initializeSound(String soundKey, int resourceId) {
         MediaPlayer mediaPlayer = MediaPlayer.create(MusicManager.context, resourceId);
-        mediaPlayer.setVolume(2.0f,2.0f);
+        mediaPlayer.setVolume(10.0f,10.0f);
         MusicManager.mediaPlayers.put(soundKey, mediaPlayer);
     }
     public static void stopAllMediaPlayers() {
