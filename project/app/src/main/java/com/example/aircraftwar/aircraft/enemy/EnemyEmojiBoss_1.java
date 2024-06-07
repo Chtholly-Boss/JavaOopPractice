@@ -1,6 +1,7 @@
 package com.example.aircraftwar.aircraft.enemy;
 
 import com.example.aircraftwar.item.BaseItem;
+import com.example.aircraftwar.manager.MusicManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,5 +17,12 @@ public class EnemyEmojiBoss_1 extends BaseEnemyEmoji{
     public List<BaseItem> addItem() {
         List<BaseItem> res = new LinkedList<>();
         return res;
+    }
+
+    @Override
+    public void vanish() {
+        super.vanish();
+        MusicManager.pauseSound("bgm_boss");
+        MusicManager.loopSound("bgm");
     }
 }

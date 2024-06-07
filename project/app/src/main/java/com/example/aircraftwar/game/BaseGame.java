@@ -108,8 +108,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
                 MusicManager.loopSound("bgm_boss");
             }
             else{
-                MusicManager.pauseSound("bgm_boss");
-                MusicManager.loopSound("bgm");
+
             }
             timeCountAndNewCycleJudge();
             enemys.addAll(produceEnemy());

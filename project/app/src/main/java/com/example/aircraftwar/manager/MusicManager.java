@@ -26,8 +26,8 @@ public class MusicManager {
         initSoundPool();
     }
     private static void initMediaPlayer() {
-        MusicManager.initializeSound("bgm", R.raw.bgm_game);
-        MusicManager.initializeSound("bgm_boss", R.raw.bgm_boss2);
+        MusicManager.initializeSound("bgm", R.raw.tabula);
+        MusicManager.initializeSound("bgm_boss", R.raw.sakuya);
     }
     private static void initSoundPool() {
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
