@@ -35,12 +35,12 @@ public abstract class BaseEnemyEmoji extends BaseEmoji {
         powerAddFactory = new PowerAddItemFactory();
         healFixedFactory = new HealFixedItemFactory();
         itemProb = Map.of(
-                () -> healFixedFactory.makeItem(this.getX(),this.getY()),0.2,
+                () -> healFixedFactory.makeItem(this.getX(),this.getY()),0.3,
                 () -> bulletAddFactory.makeItem(this.getX(),this.getY()),0.5,
-                () -> bulletAddFactory.makeItem(this.getX(),this.getY()),0.8
+                () -> powerAddFactory.makeItem(this.getX(),this.getY()),0.8
         );
         selector = new WeightedRandomSelector<>(itemProb);
-        selector.setMaxProb(2.0);
+        selector.setMaxProb(4.0);
     }
     public int addScore() {
         return this.score;
