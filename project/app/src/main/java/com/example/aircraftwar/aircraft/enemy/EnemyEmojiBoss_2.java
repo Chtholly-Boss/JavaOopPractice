@@ -1,5 +1,6 @@
 package com.example.aircraftwar.aircraft.enemy;
 
+import com.example.aircraftwar.game.BaseGame;
 import com.example.aircraftwar.item.BaseItem;
 import com.example.aircraftwar.manager.MusicManager;
 
@@ -21,6 +22,7 @@ public class EnemyEmojiBoss_2 extends BaseEnemyEmoji{
     @Override
     public void vanish() {
         super.vanish();
+        BaseGame.isBossExist = false;
         MusicManager.pauseSound("bgm_boss");
         MusicManager.loopSound("bgm");
     }
