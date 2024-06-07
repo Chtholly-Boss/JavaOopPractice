@@ -54,31 +54,14 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     protected int cycleTime = 0;
     protected int cycleBreakPoint = 10000;
     protected int score = 0;
-
-    protected boolean isSound = false;
     protected boolean isBossExist = false;
     protected boolean gameOver = false;
 
     protected Handler gameHandler;
-
-    protected MusicManager musicManager;
-
-
-
     public BaseGame(Context context, Handler gameActivityHandler, boolean isSound) {
         super(context);
-        // Initialize Paint Tools
-        musicManager = MusicManager.getInstance();
-        musicManager.setContext(context);
-
-        // 初始化音效
-        musicManager.initializeSound("bgm", R.raw.bgm_game);
-        musicManager.initializeSound("bgm_boss", R.raw.bgm_boss2);
-
-        this.isSound = isSound;
-        if(isSound) {
-            musicManager.loopSound("bgm");
-        }
+        MusicManager.init(context,isSound);
+        MusicManager.loopSound("bgm");
         this.gameHandler = gameActivityHandler;
         mIsDrawing = true;
         mPaint = new Paint();
@@ -120,45 +103,30 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     }
     public void action() {
         Runnable task = () -> {
-
-            // TODO : New Cycle Action to be defined
-            if(isSound){
-                if(isBossExist){
-                    musicManager.pauseSound("bgm");
-                    musicManager.loopSound("bgm_boss");
-                }
-                else{
-                    musicManager.pauseSound("bgm_boss");
-                    musicManager.loopSound("bgm");
-                }
+            if(isBossExist){
+                MusicManager.pauseSound("bgm");
+                MusicManager.loopSound("bgm_boss");
+            }
+            else{
+                MusicManager.pauseSound("bgm_boss");
+                MusicManager.loopSound("bgm");
             }
             timeCountAndNewCycleJudge();
             enemys.addAll(produceEnemy());
             shootAction();
-            // Routines
-            Stream.of(this.enemys, this.bulletsOfHero, this.bulletsOfEnemy, this.items)
-                    .flatMap(Collection::stream)
-                    .forEach(AbstractFlyingObject::move);
-
-            this.bulletsOfHero.forEach(bullet -> this.enemys.forEach(enemy -> {
-               if (bullet.hitObject(enemy)) {
-                   if (enemy.notValid()) {
-                       this.score += enemy.addScore();
-                       items.addAll(enemy.addItem());
-                   }
-               }
-            }));
-            this.bulletsOfEnemy.forEach(bullet -> bullet.hitObject(this.hero));
-            this.enemys.forEach(enemy -> {
-                if (enemy.crash(hero)) hero.vanish();
-            });
-            this.items.forEach(BaseItem::onEffect);
-            this.postProcess();
-
+            moveAction();
+            crachCheckAction();
+            postProcess();
+            GameOverAction();
         };
         task.run();
     }
     protected abstract List<BaseEnemyEmoji> produceEnemy();
+    private void moveAction() {
+        Stream.of(this.enemys, this.bulletsOfHero, this.bulletsOfEnemy, this.items)
+                .flatMap(Collection::stream)
+                .forEach(AbstractFlyingObject::move);
+    }
     private void shootAction() {
         if (cycleTime % hero.getShootStrategy().getShootInterval() == 0) {
             bulletsOfHero.addAll(hero.shoot());
@@ -166,6 +134,27 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         enemys.forEach(enemy -> {
             if (cycleTime % enemy.getShootStrategy().getShootInterval() == 0) {
                 bulletsOfEnemy.addAll(enemy.shoot());
+            }
+        });
+    }
+    private void crachCheckAction() {
+        this.bulletsOfHero.forEach(bullet -> this.enemys.forEach(enemy -> {
+            if (bullet.hitObject(enemy)) {
+                MusicManager.playSound("bullet_hit");
+                if (enemy.notValid()) {
+                    this.score += enemy.addScore();
+                    items.addAll(enemy.addItem());
+                }
+            }
+        }));
+        this.bulletsOfEnemy.forEach(bullet -> bullet.hitObject(this.hero));
+        this.enemys.forEach(enemy -> {
+            if (enemy.crash(hero)) hero.vanish();
+        });
+        //this.items.forEach(BaseItem::onEffect);
+        this.items.forEach(item -> {
+            if (item.onEffect()) {
+                MusicManager.playSound("get_supply");
             }
         });
     }
@@ -178,20 +167,16 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
             this.gameOver = true;
             this.mIsDrawing = false;
             Log.i(TAG,"HeroAircraft is not valid.");
-            endProcess();
-
         }
     }
-    private void endProcess() {
-        if(isSound){
-            musicManager.stopSound("bgm");
-            musicManager.stopSound("boss_bgm");
-            musicManager.releaseSound("bgm");
-            musicManager.releaseSound("boss_bgm");
+    private void GameOverAction() {
+        if (gameOver) {
+            MusicManager.stopAllMediaPlayers();
+            MusicManager.playSound("game_over");
+            // 创建一个Message对象，附加score数据，并发送
+            Message message = gameHandler.obtainMessage(GAME_OVER, score);
+            gameHandler.sendMessage(message);
         }
-        // 创建一个Message对象，附加score数据，并发送
-        Message message = gameHandler.obtainMessage(GAME_OVER, score);
-        gameHandler.sendMessage(message);
     }
     public int getScore() {
         return score;
@@ -202,7 +187,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         if (mCanvas == null) return;
         mCanvas.drawBitmap(background,0, backgroundTop-background.getHeight(),mPaint);
         mCanvas.drawBitmap(background,0,backgroundTop,mPaint);
-        backgroundTop = backgroundTop == background.getHeight() ? 0 : backgroundTop + 1;
+        backgroundTop = backgroundTop == GameActivity.screenHeight ? 0 : backgroundTop + 1;
         Stream.concat(Stream.of(this.hero), Stream.of(this.bulletsOfEnemy, this.bulletsOfHero, this.enemys, this.items).flatMap(Collection::stream))
                 .forEach(this::paintWithPositionRevised);
         mPaint.setColor(Color.WHITE);
