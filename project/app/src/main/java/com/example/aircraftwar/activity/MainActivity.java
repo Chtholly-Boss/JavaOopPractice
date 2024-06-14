@@ -14,6 +14,7 @@ import com.example.aircraftwar.R;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private boolean isSoundEffectOn = false;
     Button btnOffline;
+    Button btnOnline;
 
     RadioGroup rg;
     RadioButton rbOn;
@@ -29,23 +30,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView(){
         btnOffline = (Button) findViewById(R.id.btnOffline);
+        btnOnline = (Button) findViewById(R.id.btnOnline);
         rg = (RadioGroup) findViewById(R.id.rg);
         rbOff = (RadioButton) findViewById(R.id.rbOff);
         rbOn = (RadioButton) findViewById(R.id.rbOn);
 
         btnOffline.setOnClickListener(this);
+        btnOnline.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view){
-        int selectedId = rg.getCheckedRadioButtonId();
-        if (selectedId == R.id.rbOn){
-            isSoundEffectOn = true;
+        isSoundEffectOn = rg.getCheckedRadioButtonId() == R.id.rbOn;
+        int selectedId = view.getId();
+        if (selectedId == R.id.btnOffline) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("Boolean",isSoundEffectOn);
+            Intent intent = new Intent(MainActivity.this, OfflineActivity.class);
+            intent.putExtra("sound", bundle);
+            startActivity(intent);
+        } else if (selectedId == R.id.btnOnline) {
+            // TODO : Create Child Thread
         }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Boolean",isSoundEffectOn);
-        Intent intent = new Intent(MainActivity.this, OfflineActivity.class);
-        intent.putExtra("sound", bundle);
-        startActivity(intent);
     }
 }
