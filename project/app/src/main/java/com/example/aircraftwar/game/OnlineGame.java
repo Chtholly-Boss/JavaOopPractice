@@ -25,6 +25,7 @@ public class OnlineGame extends EasyGame{
         super.action();
         if (cycleTime % 2000 == 0) {
             sendScore2Server();
+
         }
     }
     private void sendScore2Server() {
