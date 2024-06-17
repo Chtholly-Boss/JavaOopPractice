@@ -196,7 +196,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         mCanvas.drawText("HP: " + hero.getHp(),0,100,mPaint);
         mSurfaceHolder.unlockCanvasAndPost(mCanvas);
     }
-    private void paintWithPositionRevised(AbstractFlyingObject obj) {
+    protected void paintWithPositionRevised(AbstractFlyingObject obj) {
         Bitmap image = obj.getImage();
         assert image != null : obj.getClass().getName() + " has no image!!!";
         mCanvas.drawBitmap(image,obj.getX() - image.getWidth() / 2,
