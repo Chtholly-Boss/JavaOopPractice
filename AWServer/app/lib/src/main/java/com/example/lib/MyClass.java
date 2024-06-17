@@ -1,35 +1,53 @@
 package com.example.lib;
 
-import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
-import java.net.InterfaceAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class MyClass {
+    private ServerSocket server;
+    private Socket client_1;
+    private Socket client_2;
     public static void main(String[] args){
         new MyClass();
     }
 
     public MyClass(){
         try {
-            // 1. 创建ServerSocket
-            ServerSocket serverSocket = new ServerSocket(9999);
-            System.out.println("--Listener Port: 9999--");
-            while (true) {
-                //2.等待接收请求，这里接收客户端的请求
-                Socket client = serverSocket.accept();
-
-                //3.开启子线程线程处理和客户端的消息传输
-                new ServerSocketThread(client).start();
-            }
+            InetAddress addr = InetAddress.getLocalHost();
+            System.out.println("--local host: " + addr + "--");
+            doInBackground();
         }catch (Exception ex){
             ex.printStackTrace();
+        }
+    }
+    protected void doInBackground() {
+        try {
+            server = new ServerSocket(9999);
+            // Waiting for connection
+            System.out.println("Waiting For Connection...");
+            client_1 = server.accept();
+            System.out.println("First Connection Success!");
+            client_2 = server.accept();
+            // Send Matched
+            sendMatchedMessage(client_1);
+            sendMatchedMessage(client_2);
+            System.out.println("Successfully Connect!");
+            while (true) {
+                // TODO : exchange score between 2 clients
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void sendMatchedMessage(Socket socket) {
+        try {
+            PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
+            out.println("Matched");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

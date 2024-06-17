@@ -11,6 +11,7 @@ import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -25,9 +26,9 @@ public class ServerSocketThread extends Thread{
     @Override
     public void run(){
         try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
             pw = new PrintWriter(new BufferedWriter(
-                    new OutputStreamWriter(socket.getOutputStream(), "UTF-8")), true);
+                    new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8)), true);
 
             String content;
 
