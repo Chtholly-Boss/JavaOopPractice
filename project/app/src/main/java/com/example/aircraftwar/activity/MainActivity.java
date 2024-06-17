@@ -92,6 +92,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dismissMatchingDialog();
                 // TODO : jump to GameActivity
                 System.out.println("Sucessfully Matched");
+                Intent intent = new Intent(MainActivity.this,GameActivity.class);
+                intent.putExtra("gameType",4);
+                intent.putExtra("sound",isSoundEffectOn);
+                GameActivity.socket = this.socket;
+                startActivity(intent);
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();

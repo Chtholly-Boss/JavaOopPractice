@@ -29,6 +29,7 @@ import com.example.aircraftwar.item.BaseItem;
 import com.example.aircraftwar.manager.ImageManager;
 import com.example.aircraftwar.manager.MusicManager;
 
+import java.net.Socket;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -57,8 +58,14 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     public static boolean isBossExist = false;
     public static int bossThreshold = 100;
     protected boolean gameOver = false;
+    protected Socket socket;
 
     protected Handler gameHandler;
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
     public BaseGame(Context context, Handler gameActivityHandler, boolean isSound) {
         super(context);
         MusicManager.init(context,isSound);
