@@ -16,7 +16,9 @@ import com.example.aircraftwar.game.BaseGame;
 import com.example.aircraftwar.game.EasyGame;
 import com.example.aircraftwar.game.HardGame;
 import com.example.aircraftwar.game.MidGame;
+import com.example.aircraftwar.game.OnlineGame;
 
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class GameActivity extends AppCompatActivity {
     public static int screenWidth;
     public static int screenHeight;
     private int gameType;
+    public static Socket socket;
 
     private boolean isSound;
     private Handler gameActivityHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
@@ -56,7 +59,8 @@ public class GameActivity extends AppCompatActivity {
     private Map<Integer, Supplier<BaseGame>> hardLevelMap = Map.of(
             1,() -> new EasyGame(this, gameActivityHandler,isSound),
             2,() -> new MidGame(this, gameActivityHandler, isSound),
-        3,() -> new HardGame(this, gameActivityHandler, isSound)
+        3,() -> new HardGame(this, gameActivityHandler, isSound),
+            4,() -> new OnlineGame(this,gameActivityHandler,isSound)
     );
 
 
@@ -71,6 +75,7 @@ public class GameActivity extends AppCompatActivity {
             isSound = getIntent().getBooleanExtra("sound", false);
         }
         BaseGame baseGameView = Objects.requireNonNull(hardLevelMap.get(gameType)).get();
+        if (gameType == 4) baseGameView.setSocket(socket);
         setContentView(baseGameView);
     }
     private void getScreenParams(){
