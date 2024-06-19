@@ -74,13 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (selectedId == R.id.btnOnline) {
             displayMatchingDialog();
             new Thread(this::doInBackground).start();
-            // TODO : When Connected,Start Easy Game
-            // * test here: send hello to the opponent in std::out
 
-            // TODO : In game,every 300ms send score to opponent
-            // * test here: test in game
-            // TODO : One player game over
-            // * test here
         }
     }
     protected void doInBackground() {

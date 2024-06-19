@@ -1,8 +1,10 @@
 package com.example.lib;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -29,42 +31,40 @@ public class MyClass {
     protected void doInBackground() {
         try {
             server = new ServerSocket(9999);
-            // Waiting for connection
-            System.out.println("Waiting For Connection...");
+            System.out.println("Waiting... ...");
             client_1 = server.accept();
-            System.out.println("First Connection Success!");
             client_2 = server.accept();
-            // Send Matched
-            sendMatchedMessage(client_1);
-            sendMatchedMessage(client_2);
+            sendMessage(client_1,"Matched");
+            sendMessage(client_2,"Matched");
             System.out.println("Successfully Connect!");
-            while (true) {
-                receiveScore(client_1);
-                // TODO : exchange score between 2 clients
-
-            }
+            new Thread(() -> passScoreLeft2Right(client_1,client_2)).start();
+            new Thread(() -> passScoreLeft2Right(client_2,client_1)).start();
+            if (client_1.isClosed() || client_2.isClosed()) System.out.println("One Socket closed");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private void sendMatchedMessage(Socket socket) {
+    private void sendMessage(Socket socket,String msg) {
         try {
-            PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-            out.println("Matched");
+            PrintWriter out = new PrintWriter(new BufferedWriter(
+                    new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8)), true);
+            out.println(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private void receiveScore(Socket socket) {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-            String score;
-            if((score = in.readLine() )!= null){
-                System.out.println(score);
-
+    private void passScoreLeft2Right(Socket left,Socket right) {
+        while (true) {
+            try {
+                String msg;
+                BufferedReader in = new BufferedReader(new InputStreamReader(left.getInputStream(),StandardCharsets.UTF_8));
+                if ((msg = in.readLine()) != null) {
+                    System.out.println(msg);
+                    sendMessage(right,msg);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
