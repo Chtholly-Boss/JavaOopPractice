@@ -41,6 +41,8 @@ public class OnlineGame extends EasyGame{
             if (gameOver && opGameOver) {
                 competitionDone();
                 break;
+            } else {
+                draw();
             }
         }
     }
