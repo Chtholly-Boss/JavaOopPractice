@@ -111,13 +111,6 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
     }
     public void action() {
         Runnable task = () -> {
-//            if(isBossExist){
-//                MusicManager.pauseSound("bgm");
-//                MusicManager.loopSound("bgm_boss");
-//            }
-//            else{
-//
-//            }
             timeCountAndNewCycleJudge();
             enemys.addAll(produceEnemy());
             shootAction();
@@ -172,12 +165,12 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         items.removeIf(AbstractFlyingObject::notValid);
         if (hero.notValid()) {
             this.gameOver = true;
-            this.mIsDrawing = false;
             Log.i(TAG,"HeroAircraft is not valid.");
         }
     }
-    private void GameOverAction() {
+    protected void GameOverAction() {
         if (gameOver) {
+            this.mIsDrawing = false;
             MusicManager.stopAllMediaPlayers();
             MusicManager.playSound("game_over");
             // 创建一个Message对象，附加score数据，并发送
@@ -189,7 +182,7 @@ public abstract class BaseGame extends SurfaceView implements SurfaceHolder.Call
         return score;
     }
 
-    public void draw() {
+    protected void draw() {
         mCanvas = mSurfaceHolder.lockCanvas();
         if (mCanvas == null) return;
         mCanvas.drawBitmap(background,0, backgroundTop-background.getHeight(),mPaint);
