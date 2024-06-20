@@ -1,12 +1,14 @@
 package com.example.aircraftwar.game;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ThemedSpinnerAdapter;
 
 import com.example.aircraftwar.activity.GameActivity;
+import com.example.aircraftwar.activity.ResultActivity;
 import com.example.aircraftwar.manager.MusicManager;
 
 import java.io.BufferedReader;
@@ -22,6 +24,8 @@ import java.util.stream.Stream;
 
 public class OnlineGame extends EasyGame{
     private int opScore = 0;
+
+    private Context context;
     private boolean opGameOver = false;
 
     public void setSocket(Socket socket) {
@@ -30,6 +34,7 @@ public class OnlineGame extends EasyGame{
 
     public OnlineGame(Context context, Handler handler, boolean isSound) {
         super(context, handler, isSound);
+        this.context = context;
         System.out.println("Go into the Game!");
     }
 
@@ -47,8 +52,15 @@ public class OnlineGame extends EasyGame{
         }
     }
     private void competitionDone() {
+
         // TODO : Specify what you want to do when both players finished
         System.out.println("Game Over");
+        Intent intent = new Intent();
+        intent.putExtra("score",score);
+        intent.putExtra("opScore",opScore);
+        intent.setClass(context, ResultActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
     private void gameRunning() {
         while (mIsDrawing) {
